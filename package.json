@@ -10,7 +10,14 @@
   "dependencies": {
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
+    "element-ui": "^2.15.13",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^13.3.2",
+    "swiper": "^5.3.6",
     "vue": "^3.2.13",
+    "vue-awesome-swiper": "^5.0.1",
+    "vue-cookie": "^1.1.4",
+    "vue-lazyload": "^3.0.0",
     "vue-router": "^4.2.2",
     "vuex": "^4.1.0"
   },
@@ -36,7 +43,9 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "vue/multi-word-component-names": "off"
+    }
   },
   "browserslist": [
     "> 1%",
