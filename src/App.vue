@@ -7,6 +7,7 @@
 
 <script>
 import storage from './storage';
+import jsonp from 'jsonp'
 
 export default {
   name: 'App',
@@ -14,6 +15,8 @@ export default {
     
   },
   mounted(){
+    
+    
     
 
 
