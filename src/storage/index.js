@@ -37,6 +37,9 @@ export default{//对象里的函数声明
     clear(key, module_name){
         let temp=this.getStorage()
         if(module_name){
+            if(!temp[module_name]){
+                return
+            }
             delete temp[module_name][key]
         }else{
             delete temp[key]

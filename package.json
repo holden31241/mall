@@ -12,11 +12,12 @@
     "core-js": "^3.8.3",
     "element-ui": "^2.15.13",
     "jsonp": "^0.2.1",
-    "node-sass": "^9.0.0",
+    "mockjs": "^1.1.0",
     "sass-loader": "^13.3.2",
     "swiper": "^5.3.6",
     "vue": "^3.2.13",
     "vue-awesome-swiper": "^5.0.1",
+    "vue-axios": "^3.5.2",
     "vue-cookie": "^1.1.4",
     "vue-lazyload": "^3.0.0",
     "vue-router": "^4.2.2",
@@ -45,7 +46,13 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "vue/multi-word-component-names": "off"
+      "vue/multi-word-component-names": "off",
+      "generator-star-spacing": "off",
+      "no-tabs": "off",
+      "no-unused-vars": "off",
+      "no-console": "off",
+      "no-irregular-whitespace": "off",
+      "no-debugger": "off"
     }
   },
   "browserslist": [

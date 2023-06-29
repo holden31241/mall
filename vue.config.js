@@ -13,7 +13,6 @@ module.exports = defineConfig({
         }
       }
     }
-  },
-  transpileDependencies: true,
-  lintOnSave: false
+  }
+  
 })

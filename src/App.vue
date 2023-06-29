@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    
     <router-view></router-view>
   </div>
   
@@ -8,19 +9,16 @@
 <script>
 import storage from './storage';
 import jsonp from 'jsonp'
+import { onMounted } from 'vue'
+import axios from 'axios'
 
 export default {
   name: 'App',
-  components: {
+  
+  setup(){
     
-  },
-  mounted(){
-    
-    
-    
-
-
   }
+ 
 }
 </script>
 
