@@ -5,7 +5,7 @@ import router from './router'
 import axios from 'axios'
 
 
-let mock=true
+let mock=false
 if(mock){
     require('./mock/api')
 }
