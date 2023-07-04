@@ -259,23 +259,37 @@ export default {
             line-height:112px;
             margin-right:20px;
             span{
+              
               //定义鼠标指针
               cursor:pointer;
+            //   &:hover{
+            //     color:$colorA;
+            //   }
+            //   // 兄弟选择器：+
+            //   &:hover+.children{
+                
+            //     height:220px;
+            //     opacity: 1;
+            //不能使用，鼠标一旦离开span标签，下拉菜单就会消失，但如果把hover加在父元素上，下拉菜单也算在hover区域内，不会消失    
+              
+              
+            // }
             }
             &:hover{
-                color:$colorA;
-                .children{
-                height:220px;
-                opacity: 1;
-                
+                 color:$colorA;
+                 .children{
+                  height:220px;
+                  opacity: 1;
+                 }
               }
-              
-            }
+
+            
             .children{
               position:absolute;
               top:112px;
               left:0;
               width:1226px;
+              height: 0;
               border-top:1px solid $colorH;
               //清除浮动
               overflow: hidden;
