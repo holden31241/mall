@@ -146,7 +146,7 @@ export default {
   
     onMounted(() => {
       getProductList();
-      console.log(phoneList)
+      
   
     });
     const login = () => {
