@@ -27,6 +27,7 @@ export default {
         display: inline-block;
         width: 24.9%;
         text-align: center;
+        // 竖线高度和盒子相同，用border实现
         border-right: 1px solid $colorH;
 
         span {

@@ -36,6 +36,7 @@
                               v-for="(item, index) in phoneList"
                               :key="index"
                             >
+                            <!-- v-bind绑定的""内必须为js表达式 -->
                               <a v-bind:href="'/#/product/' + item.id" target="_blank">
                                 <div class="pro-img">
                                   <img :src="item.mainImage" :alt="item.subtitle" />
@@ -291,7 +292,7 @@ export default {
               width:1226px;
               height: 0;
               border-top:1px solid $colorH;
-              //清除浮动
+              //清除浮动；清除溢出，防止子盒子显示
               overflow: hidden;
               opacity: 0;
               // 盒子阴影 水平阴影 垂直阴影 阴影虚实度 阴影尺寸

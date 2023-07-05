@@ -3,6 +3,8 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import axios from 'axios'
+// import VueAwesomeSwiper from 'vue-awesome-swiper';
+import 'swiper/scss';
 
 
 let mock=false
