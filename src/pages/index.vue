@@ -11,7 +11,8 @@
                                 <ul v-for="(item, i) in menuList" v-bind:key="i">
                                     <li v-for="(sub, j) in item" v-bind:key="j">
                                         <a v-bind:href="sub ? '/#/product/' + sub.id : ''">
-                                        <img v-bind:src="sub ? sub.img : '/imgs/item-box-1.png'" alt="">
+                                        <!-- 图片懒加载用法 -->
+                                        <img v-lazy="sub ? sub.img : '/imgs/item-box-1.png'" alt="">
                                         {{ sub ? sub.name : '小米9' }}
                                         </a>
                                     </li>
@@ -41,6 +42,7 @@
                         </li>
                     </ul>
                 </div>
+                <!-- swiper插件用法 -->
                 <swiper class="swiper-container"
                     :modules="modules"
                     :loop="true"
@@ -49,7 +51,7 @@
                     :navigation="true"
                     :pagination="{ clickable: true }">
                     <swiper-slide v-for="(item, index) in slideList" v-bind:key="index">
-                    <a v-bind:href="'/#/product/' + item.id"><img v-bind:src="item.img"></a>
+                    <a v-bind:href="'/#/product/' + item.id"><img v-lazy="item.img"></a>
                     </swiper-slide>
                     
                 </swiper>
@@ -57,12 +59,12 @@
             </div>
                 <div class="ads-box">
                     <a v-bind:href="'/#/product/' + item.id" v-for="(item, index) in adsList" v-bind:key="index">
-                        <img v-bind:src="item.img" alt="">
+                        <img v-lazy="item.img" alt="">
                     </a>
                 </div>
                 <div class="banner">
                     <a href="/#/product/30">
-                        <img src="/imgs/banner-1.png" alt="">
+                        <img v-lazy="'/imgs/banner-1.png'" alt="">
                     </a>
                 </div>
                   
@@ -72,7 +74,7 @@
             <h2>手机</h2>
             <div class="wrapper">
                 <div class="banner-left">
-                    <a href="/#/product/35"><img src="/imgs/mix-alpha.jpg" alt=""></a>
+                    <a href="/#/product/35"><img v-lazy="'/imgs/mix-alpha.jpg'" alt=""></a>
                 </div>
                 <div class="list-box">
                     <div class="list" v-for="(arr, i) in phoneList" v-bind:key="i">
@@ -80,12 +82,12 @@
                             <!-- 绑定样式 -->
                             <span v-bind:class="{ 'new-pro': j % 2 == 0 }">新品</span>
                             <div class="item-img">
-                                <img :src="item.mainImage" alt="">
+                                <img v-lazy="item.mainImage" alt="">
                             </div>
                             <div class="item-info">
                                 <h3>{{ item.name }}</h3>
                                 <p>{{ item.subtitle }}</p>
-                                <p class="price">{{ item.price }}元</p>
+                                <p class="price" @click="addCart(item.id)">{{ item.price }}元</p>
                             </div>
                         </div>
                     </div>
@@ -94,15 +96,33 @@
             </div>
         </div>
     <service-bar></service-bar>
+    <!-- pros 为子组件传入参数 -->
+    <!-- emit 绑定子组件自定义事件 -->
+    <modal 
+       
+        title="提示" 
+        sureText="查看购物车" 
+        btnType="1" 
+        modalType="middle" 
+        v-bind:showModal="showModal"
+        v-on:submit="goToCart"
+        v-on:cancel="showModal = false">
+        <!-- 父组件使用插槽 -->
+        <template v-slot:body>
+            <p>商品添加成功！</p>
+        </template>
+    </modal>
         
     </div>
 </template>
 <script>
 import ServiceBar from './../components/ServiceBar'
+import Modal from './../components/Modal'
 import { Swiper, SwiperSlide } from 'swiper/vue'; 
 import { Pagination, Navigation } from 'swiper/modules';
 import { getCurrentInstance, computed, onMounted, ref, reactive } from "vue";
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
@@ -110,6 +130,7 @@ import 'swiper/scss/pagination'
 export default {
     name: 'index',
    setup(){
+    let showModal=ref(false)
     let menuList=[
             [
                 {
@@ -172,6 +193,7 @@ export default {
             }
         ] 
     let  phoneList= ref([])
+    const router = ref(useRouter());
     const getPhoneList = () => {
             //get使用params，post使用data
             axios.get('/products', {
@@ -187,11 +209,28 @@ export default {
             })
 
         }; 
+    const goToCart=()=>{
+            router.value.push('/cart');
+        }
+    const addCart=()=>{
+            showModal.value = true;
+            /*this.axios.post('/carts',{
+              productId:id,
+              selected: true
+            }).then(()=>{
+              
+            }).catch(()=>{
+              this.showModal = true;
+            })*/
+        }   
         onMounted(() => {
            getPhoneList() 
         })    
         return{
+           goToCart,
            getPhoneList,
+           addCart,
+           showModal,
            phoneList, 
            slideList,
            menuList,
@@ -204,7 +243,8 @@ export default {
        
         Swiper,
         SwiperSlide,
-        ServiceBar
+        ServiceBar,
+        Modal
     }
     
 }
@@ -248,12 +288,13 @@ export default {
               .children{
                 // display:block;
                 width:962px;
-                transition:all 0.2s;
+                
               }
             }
             .children{
             //   display:block;
             //   width:962px;
+              transition:all 0.2s;
               width: 0;
               height:451px;
               background-color:$colorG;

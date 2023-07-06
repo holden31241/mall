@@ -3,6 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import axios from 'axios'
+import VueLazyLoad from 'vue-lazyload'
 // import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/scss';
 
@@ -27,5 +28,8 @@ axios.interceptors.response.use(function (response) {//响应拦截
     }
 
 })
-createApp(App).use(store).use(router).mount('#app')
+// 图片懒加载，loading：未加载出图片时的动画
+createApp(App).use(store).use(router).
+    use(VueLazyLoad, {loading: '/imgs/loading-svg/loading-bars.svg'
+}).mount('#app')
 
