@@ -184,6 +184,8 @@ export default {
 }
 </script>
 <style lang="scss">
+// 引入的样式文件是全局的，除非加了scoped，否则其它文件能公用这个样式
+// 但config.scss和mixin.scss不属于样式，而是定义的变量与函数，所以需要单独引入
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';
@@ -208,6 +210,7 @@ export default {
           background-color:$colorA;
           text-align:center;
           color:$colorG;
+          margin-right:0;
           .icon-cart{
             
             @include bgImg(16px,12px,'../../public/imgs/icon-cart-checked.png');

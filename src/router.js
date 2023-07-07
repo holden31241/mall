@@ -1,6 +1,7 @@
 
 import Home from './pages/home'
 import Index from './pages/index'
+import Login from './pages/login'
 import Product from './pages/product'
 import Detail from './pages/detail'
 import Cart from './pages/cart'
@@ -42,6 +43,11 @@ const router = createRouter({
 
 
 
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
         },
         {
             path: '/cart',

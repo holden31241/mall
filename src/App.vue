@@ -19,7 +19,26 @@ export default {
   setup(){
     const router = useRouter()
     const route = useRoute()
+    const getUser=()=>{
+      axios.get('/user').then(() => {
+        // to-do 保存到vuex里面
+      })
+    }
+    const getCartCount = () => {
+      axios.get('/carts/products/sum').then(() => {
+        // to-do 保存到vuex里面
+      })
   }
+  onMounted(()=>{
+    
+    getUser()
+    getCartCount()
+  })
+  return{
+    getUser,
+    getCartCount
+  }
+}
  
 }
 </script>

@@ -252,7 +252,7 @@ export default {
 <style lang="scss">
 @import './../assets/scss/config.scss';
 @import './../assets/scss/mixin.scss';
-@import './../assets/scss/base.scss';
+
 .index {
     .swiper-box {
          .nav-menu{

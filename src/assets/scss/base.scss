@@ -1,4 +1,5 @@
 .container {
+    position: relative;
     width: 1226px;
     // 块级元素水平居中：1.盒子必须指定宽度 2.margin-left/margin-right:auto
     margin-right: auto;
@@ -9,4 +10,9 @@ a {
         width: 100%;
         height: 100%;
     }
+}
+input {
+    outline: none;
+    box-sizing: border-box;
+    font-size: 14px;
 }

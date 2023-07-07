@@ -4,6 +4,7 @@ import store from './store'
 import router from './router'
 import axios from 'axios'
 import VueLazyLoad from 'vue-lazyload'
+import VueCookies from 'vue-cookies'
 // import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/scss';
 
@@ -18,18 +19,28 @@ axios.defaults.timeout=8000//超时时间设置
 
 axios.interceptors.response.use(function (response) {//响应拦截
     let res = response.data;
+    let path = location.hash;
+    //当前页面为index时，不跳转
     if (res.status == 0) {
+        
         return res.data;
     } else if (res.status == 10) {//拦截未登录错误 
-        window.location.href = '/#/login'
-
+        if (path != '#/index' && path != '#/login') {
+            
+            window.location.href = '/#/login'
+            window.location.reload()
+            
+        }
+        
     }else{
         alert(res.msg)
+        return Promise.reject(res)
     }
 
 })
 // 图片懒加载，loading：未加载出图片时的动画
-createApp(App).use(store).use(router).
-    use(VueLazyLoad, {loading: '/imgs/loading-svg/loading-bars.svg'
+const app=createApp(App).use(store).use(router).use(VueCookies)
+    .use(VueLazyLoad, {loading: '/imgs/loading-svg/loading-bars.svg'
 }).mount('#app')
+// app.config.globalProperties.$cookies = VueCookie
 
