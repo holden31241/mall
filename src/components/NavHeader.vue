@@ -11,12 +11,12 @@
                     <a href="javascript:;">协议规则</a>
                 </div>
                 <div class="topbar-user">
-                    <a href="javascript:;" v-if="username">{{ username }}</a>
+                    <a href="javascript:;" v-if="username" >{{username}}</a>
                     <a href="javascript:;" v-if="!username" @click="login">登录</a>
-                    <a href="">注册</a>
+                    <a href="javascript:;" v-if="!username">注册</a>
                     <a href="javascript:;" class="my-cart" @click="goToCart">
                         <span class="icon-cart"></span>
-                        购物车
+                        购物车({{ cartCount }})
                     </a>
                 </div>
             </div>
@@ -128,27 +128,37 @@
     </div>
 </template>
 <script>
-import { getCurrentInstance, computed, onMounted, ref,reactive } from "vue";
+import { getCurrentInstance, computed, onMounted, ref,reactive,onUpdated } from "vue";
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-
+import { useStore } from 'vuex'
 export default {
     name: 'nav-header',
     setup(){
     //vue3 路由使用!!!这样设置可以避免手动刷新
     const router = ref(useRouter());
-    const username='';
-    // console.log(router);
-    // const { proxy } = getCurrentInstance();
+    
     let phoneList = ref([]);
-  
-   
+    const store = useStore()
+    let test=ref(0)
   
     onMounted(() => {
       getProductList();
       
   
     });
+   
+ 
+
+    let username = computed(() => {
+     
+      return store.state.username
+    })
+    
+    let cartCount=computed(()=>{
+      return store.state.cartCount
+    })
+
     const login = () => {
       //编程式路由跳转
       router.value.push("login");
@@ -172,8 +182,9 @@ export default {
       router.value.push("cart");
     };
     return {
-      
-      
+      test,
+      username,
+      cartCount,
       phoneList,
       login,
       getProductList,

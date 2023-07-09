@@ -42,23 +42,27 @@ import cookies from 'vue-cookies'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import {  ref } from "vue";
+import { useStore } from 'vuex'
 export default {
     name: 'login',
     setup(){
         let username=ref('')
         let password=ref('')
         let userId=ref('')
-        const router = ref(useRouter());
+        const router = ref(useRouter())
+        const store = useStore()
         // res = response.data
         //response:{status,data}
         const login=()=>{
             axios.post('/user/login', {
-            username,
-            password
+                // .value!!!!!!!
+            username: username.value,
+            password: password.value,
         }).then((res) => {
             // cookies用法，expires: '1M'表示保存日期
             cookies.set('userId', res.id, { expires: '1M' });
-           
+            store.dispatch('saveUserName', res.username)
+            console.log(store.state)
             router.value.push('/index');
         })
         }
