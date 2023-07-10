@@ -27,15 +27,17 @@ axios.interceptors.response.use(function (response) {//响应拦截
         return res.data;
     } else if (res.status == 10) {//拦截未登录错误 
         if (path != '#/index' ) {
-            
+           
+           
             window.location.href = '/#/login'
            
             
         }
         
+        
     }else{
         alert(res.msg)
-        return Promise.reject(res)
+        // return Promise.reject(res)
     }
 
 })

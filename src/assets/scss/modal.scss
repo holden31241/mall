@@ -1,5 +1,5 @@
 .modal {
-    // fixed 固定定位，相对浏览器可视区定位
+    // fixed 固定定位，相对浏览器可视区定位;直接用absolute是相对整个html文档进行定位
     @include position(fixed);
     z-index: 10;
     

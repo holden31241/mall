@@ -25,14 +25,19 @@ export default {
       axios.get('/user').then((res) => {
         // to-do 保存到vuex里面
         // console.log(res)
-        let temp=ref(res.username)
-        store.dispatch('saveUserName', temp)
+        if(res){
+          store.dispatch('saveUserName', res.username)
+        }
+        
       })
     }
     const getCartCount = () => {
-      axios.get('/carts/products/sum').then((res) => {
+      axios.get('/carts/products/sum').then((res=0) => {
         // to-do 保存到vuex里面
-      store.dispatch('saveCartCount', res)  
+        if(res){
+          store.dispatch('saveCartCount', res)
+        }
+      
       })
   }
   onMounted(()=>{
