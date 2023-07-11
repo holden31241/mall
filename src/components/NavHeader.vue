@@ -161,7 +161,7 @@ export default {
 
     const login = () => {
       //编程式路由跳转
-      router.value.push("login");
+      router.value.push("/login");
     };
     const getProductList = () => {
       //get使用params，post使用data
@@ -179,7 +179,7 @@ export default {
     
     };
     const goToCart = () => {
-      router.value.push("cart");
+      router.value.push("/cart");
     };
     return {
       test,
@@ -236,32 +236,7 @@ export default {
         position:relative;
         height:112px;
         @include flex();
-        .header-logo{
-          display:inline-block;
-          width:55px;
-          height:55px;
-          background-color:#FF6600;
-          a{
-            display:inline-block;
-            width:110px;
-            height:55px;
-            // scss中伪元素选择器写法，在元素内部的前面插入内容，必须有content属性
-            &:before{
-              content:' ';
-              @include bgImg(55px,55px,'../../public/imgs/mi-logo.png',55px);
-              transition:margin .2s;
-            }
-            &:after{
-              content:' ';
-              @include bgImg(55px,55px,'../../public/imgs/mi-home.png',55px);
-            }
-            //:hover和:before顺序不能反
-            &:hover:before{
-              margin-left:-55px;
-              transition:margin .2s;
-            }
-          }
-        }
+       
         .header-menu{
           display:inline-block;
           width:643px;
