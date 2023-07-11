@@ -1,7 +1,13 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
 
-  devServer: {//跨域
+  devServer: {
+    client: {
+      overlay: false,
+    },
+    
+    
+    //跨域
     host: 'localhost',
     port: 8080,
     proxy: {

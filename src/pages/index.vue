@@ -123,6 +123,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import { getCurrentInstance, computed, onMounted, ref, reactive } from "vue";
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 import 'swiper/scss'
 import 'swiper/scss/navigation'
 import 'swiper/scss/pagination'
@@ -131,6 +132,8 @@ export default {
     name: 'index',
    setup(){
     let showModal=ref(false)
+    const router = ref(useRouter())
+    const store = useStore()
     let menuList=[
             [
                 {
@@ -193,7 +196,7 @@ export default {
             }
         ] 
     let  phoneList= ref([])
-    const router = ref(useRouter());
+  
     const getPhoneList = () => {
             //get使用params，post使用data
             axios.get('/products', {
@@ -212,16 +215,17 @@ export default {
     const goToCart=()=>{
             router.value.push('/cart');
         }
-    const addCart=()=>{
-            showModal.value = true;
-            /*this.axios.post('/carts',{
-              productId:id,
-              selected: true
-            }).then(()=>{
-              
-            }).catch(()=>{
-              this.showModal = true;
-            })*/
+    const addCart=(id)=>{
+        //通过请求获得的商品信息获得id
+            axios.post('/carts', {
+                productId: id,
+                selected: true
+            }).then((res) => {
+                showModal.value = true;
+                store.dispatch('saveCartCount', res.cartTotalQuantity);
+            }).catch(() => {
+                showModal.value = true;
+            });
         }   
         onMounted(() => {
            getPhoneList() 

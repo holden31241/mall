@@ -22,7 +22,7 @@ export default {
     const route = useRoute()
     const store = useStore()
     const getUser=()=>{
-      axios.get('/user').then((res) => {
+      axios.get('/user').then((res={}) => {
         // to-do 保存到vuex里面
         // console.log(res)
         if(res){

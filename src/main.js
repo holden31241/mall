@@ -15,6 +15,8 @@ if(mock){
     require('./mock/api')
 }
 
+
+
 axios.defaults.baseURL = '/api'//api即vue.config.js 中配置的地址，作为前缀，调用axios时只需要写部分url与前缀拼接在一起
 axios.defaults.timeout=8000//超时时间设置
 
@@ -30,17 +32,24 @@ axios.interceptors.response.use(function (response) {//响应拦截
            
            
             window.location.href = '/#/login'
+            
            
             
         }
-        
+        //防止返回错误结果
+        return Promise.reject(res)
         
     }else{
         alert(res.msg)
-        // return Promise.reject(res)
+        return Promise.reject(res)
     }
 
 })
+
+// window.addEventListener('unhandledrejection', function browserRejectionHandler(event) { // 禁用Promise reject输出控制台
+//     event && event.preventDefault()
+// })
+
 // 图片懒加载，loading：未加载出图片时的动画
 const app=createApp(App).use(store).use(router).use(VueCookies)
     .use(VueLazyLoad, {loading: '/imgs/loading-svg/loading-bars.svg'
