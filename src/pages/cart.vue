@@ -60,15 +60,18 @@
 <script>
 import OrderHeader from './../components/OrderHeader.vue'
 import OrderFooter from './../components/OrderFooter.vue'
-import ServiceBar from './../components/ServiceBar'
-import {  computed, onMounted, ref, reactive, onUpdated } from "vue";
+import ServiceBar from './../components/ServiceBar.vue'
+import {  computed, onMounted, ref, reactive, onUpdated } from "vue"
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/index.css'
+
 export default {
     name: 'cart',
     setup(){
-        const router = ref(useRouter())
+        const router = useRouter()
         const store = useStore()
 
         let list=ref([])//商品列表
@@ -103,13 +106,23 @@ export default {
             let selected = item.productSelected
             if (type == '-') {
                 if (quantity == 1) {
-                    alert('商品至少保留一件');
+                    // alert('商品至少保留一件');
+                    //element-plus的使用
+                    ElMessage({
+                        message: '商品至少保留一件',
+                        type:'warning'
+                    })
                     return;
                 }
                 --quantity;
             } else if (type == '+') {
                 if (quantity > item.productStock) {
-                    alert('购买数量不能超过库存数量');
+                    
+                    // alert('购买数量不能超过库存数量');
+                     ElMessage({
+                        message: '购买数量不能超过库存数量',
+                        type: 'warning'
+                    })
                     return;
                 }
                 ++quantity;
@@ -127,6 +140,11 @@ export default {
          // delete请求用于删除数据，删除购物车商品，并重新从后端获取数据
         let  delProduct=(item)=>{
             axios.delete(`/carts/${item.productId}`).then((res) => {
+
+                ElMessage({
+                    message: '删除成功',
+                    type: 'success'
+                })
                 renderData(res);
             });
         }
@@ -134,9 +152,13 @@ export default {
             //判断数组中每一项是否满足条件，返回布尔值
             let isCheck = list.value.every(item => !item.productSelected);
             if (isCheck) {
-                alert('请选择一件商品');
+                // alert('请选择一件商品');
+                 ElMessage({
+                    message: '请选择一件商品',
+                    type: 'warning'
+                })
             } else {
-                router.value.push('/order/confirm');
+                router.push('/order/confirm');
             }
         }
 
@@ -159,6 +181,7 @@ export default {
 
     },
     components: {
+        
         ServiceBar,
         OrderHeader,
         OrderFooter

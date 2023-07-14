@@ -14,6 +14,7 @@
                     <a href="javascript:;" v-if="username" >{{username}}</a>
                     <a href="javascript:;" v-if="!username" @click="login">登录</a>
                     <a href="javascript:;" v-if="!username">注册</a>
+                    <a href="javascript:;" v-if="username" @click="logout">退出</a>
                     <a href="javascript:;" class="my-cart" @click="goToCart">
                         <span class="icon-cart"></span>
                         购物车({{ cartCount }})
@@ -129,14 +130,18 @@
 </template>
 <script>
 import { getCurrentInstance, computed, onMounted, ref,reactive,onUpdated } from "vue";
-import { useRouter } from 'vue-router'
+import { useRouter,useRoute } from 'vue-router'
 import axios from 'axios'
+import cookies from 'vue-cookies'
 import { useStore } from 'vuex'
+import { ElMessage } from 'element-plus';
+import 'element-plus/theme-chalk/index.css';
 export default {
     name: 'nav-header',
     setup(){
     //vue3 路由使用!!!这样设置可以避免手动刷新
-    const router = ref(useRouter());
+    const router = useRouter();
+    const route=useRoute()
     
     let phoneList = ref([]);
     const store = useStore()
@@ -144,11 +149,15 @@ export default {
   
     onMounted(() => {
       getProductList();
-      
+      let params= history.state.params
+      //如果路由来源为login，需要重新获取购物车数量，因为路由跳转不算页面刷新，不会促发app.vue的mount，购物车数量不会直接更新
+      if (params && params.from == 'login') {
+        getCartCount();
+      }
   
     });
    
- 
+  
 
     let username = computed(() => {
      
@@ -161,7 +170,7 @@ export default {
 
     const login = () => {
       //编程式路由跳转
-      router.value.push("/login");
+      router.push("/login");
     };
     const getProductList = () => {
       //get使用params，post使用data
@@ -178,9 +187,27 @@ export default {
       })
     
     };
+    const getCartCount = () => {
+      axios.get('/carts/products/sum').then((res = 0) => {
+        // to-do 保存到vuex里面
+        if (res) {
+          store.dispatch('saveCartCount', res)
+        }
+
+      })
+    }
     const goToCart = () => {
-      router.value.push("/cart");
+      router.push("/cart");
     };
+    const logout=()=>{
+      axios.post('/user/logout').then(() => {
+        ElMessage.success('退出成功');
+        //清空cookie
+        cookies.set('userId', '', { expires: '-1' });
+        store.dispatch('saveUserName', '');
+        store.dispatch('saveCartCount', '0');
+      })
+    }
     return {
       test,
       username,
@@ -189,6 +216,7 @@ export default {
       login,
       getProductList,
       goToCart,
+      logout
     };
 
     }

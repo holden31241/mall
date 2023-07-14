@@ -132,7 +132,7 @@ export default {
     name: 'index',
    setup(){
     let showModal=ref(false)
-    const router = ref(useRouter())
+    const router = useRouter()
     const store = useStore()
     let menuList=[
             [
@@ -213,7 +213,7 @@ export default {
 
         }; 
     const goToCart=()=>{
-            router.value.push('/cart');
+            router.push('/cart');
         }
     const addCart=(id)=>{
         //通过请求获得的商品信息获得id

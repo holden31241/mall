@@ -40,7 +40,7 @@
 
 import cookies from 'vue-cookies'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { useRouter,useRoute } from 'vue-router'
 import {  ref } from "vue";
 import { useStore } from 'vuex'
 export default {
@@ -49,7 +49,9 @@ export default {
         let username=ref('')
         let password=ref('')
         let userId=ref('')
-        const router = ref(useRouter())
+        const router = useRouter()
+        
+        const route=useRoute()
         const store = useStore()
         // res = response.data
         //response:{status,data}
@@ -59,11 +61,22 @@ export default {
             username: username.value,
             password: password.value,
         }).then((res) => {
-            // cookies用法，expires: '1M'表示保存日期
-            cookies.set('userId', res.id, { expires: '1M' });
+            // cookies用法，expires: 'Session'表示保存日期为会话日期
+            cookies.set('userId', res.id, { expires: 'Session' });
             store.dispatch('saveUserName', res.username)
-            console.log(store.state)
-            router.value.push('/index');
+            // console.log(store.state)
+            // vue3不能直接用params传参，需要通过state；通过参数标明路由跳转来源为login
+            router.push({
+                name: 'index',
+                state: {
+                    params:{
+                        from: 'login'
+                    }
+                }
+
+            });
+
+           
         })
         }
         const register=()=>{

@@ -5,6 +5,7 @@ import router from './router'
 import axios from 'axios'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookies from 'vue-cookies'
+
 // import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/scss';
 
@@ -41,6 +42,7 @@ axios.interceptors.response.use(function (response) {//响应拦截
         
     }else{
         alert(res.msg)
+        // Message.warning(res.msg)
         return Promise.reject(res)
     }
 

@@ -81,12 +81,12 @@ import 'swiper/scss/pagination'
 export default {
     name: 'detail',
     setup() {
-         const router = ref(useRouter())
+         const router = useRouter()
          const store = useStore()
          let version=ref(1)
          let product=ref({})
          let getProductInfo=()=>{
-            let id = router.value.currentRoute.params.id;
+            let id = router.currentRoute.params.id;
             axios.get(`/products/${id}`).then((res) => {
                 product.value = res;
             })
@@ -94,7 +94,7 @@ export default {
          }
          let addCart=()=>{
             //通过路由参数获得id
-            let id = router.value.currentRoute.params.id;
+            let id = router.currentRoute.params.id;
             axios.post('/carts', {
                 productId: id,
                 selected: true

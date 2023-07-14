@@ -88,7 +88,7 @@ import 'swiper/scss/pagination'
 export default {
     name: 'product',
     setup(){
-      const router = ref(useRouter())
+      const router = useRouter()
       let product= ref({})
       let showSlide=ref('')
       // let vi = document.getElementsByTagName('video')
@@ -108,14 +108,14 @@ export default {
       }
       let getProductInfo=()=>{
       //获取路由参数params  
-      let id = router.value.currentRoute.params.id;
+      let id = router.currentRoute.params.id;
         axios.get(`/products/${id}`).then((res) => {
         product.value = res;
       })
     }
       let buy = () => {
-        let id = router.value.currentRoute.params.id;
-        router.value.push(`/detail/${id}`);
+        let id = router.currentRoute.params.id;
+        router.push(`/detail/${id}`);
       }
       onMounted(()=>{
         getProductInfo()

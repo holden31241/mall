@@ -13,6 +13,7 @@ import { onMounted,ref } from 'vue'
 import axios from 'axios'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import cookies from 'vue-cookies'
 
 export default {
   name: 'App',
@@ -41,12 +42,19 @@ export default {
       })
   }
   onMounted(()=>{
+    //根据cookie判断是否登录，如果已经登录，则不需要重新获取数据，避免资源浪费
+
+    if(cookies.get('userId')){
+
+    
+
     //vuex中数据在刷新页面时，会恢复初始数据，所以需要页面挂载时，重新通过ajax请求返回数据
     //ajax请求是异步的，而mounted是同步的，因此页面会在ajax请求完成之前渲染完页面，所以页面刚渲染好时，ajax还没有返回数据，vuex中数据没有更新，
     //需要computed对数据进行监视，保证ajax返回数据后即时重新渲染面板(ref不能实现)，
     //因为computed会在mounted之前执行一次，而data数据是在mouted时渲染，所以computed可以捕获到vuex中数据变换，而ref不能
     getUser()
     getCartCount()
+    }
   })
   return{
     getUser,
