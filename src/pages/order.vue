@@ -24,7 +24,7 @@ export default {
         let title=ref('')
         let tip=ref('')
         const router = useRouter()
-        let path = ref(router.currentRoute.path)
+        let path = ref(router.currentRoute.value.path)
         onMounted(() => {
             console.log(path.value)
             if (path.value == '/order/confirm') {
@@ -34,6 +34,9 @@ export default {
                 title.value = '订单列表';
                 tip.value = '请谨防钓鱼链接或诈骗电话，了解更多>';
             } else if (path.value == '/order/pay') {
+                title.value = '订单支付';
+                tip.value = '请谨防钓鱼链接或诈骗电话，了解更多>';
+            }else if(path.value == '/order/alipay'){
                 title.value = '订单支付';
                 tip.value = '请谨防钓鱼链接或诈骗电话，了解更多>';
             }

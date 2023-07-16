@@ -5,7 +5,7 @@ import router from './router'
 import axios from 'axios'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookies from 'vue-cookies'
-
+import { ElMessage } from 'element-plus'
 // import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/scss';
 
@@ -24,6 +24,9 @@ axios.defaults.timeout=8000//超时时间设置
 axios.interceptors.response.use(function (response) {//响应拦截
     let res = response.data;
     let path = location.hash;
+    // 业务问题拦截
+
+
     //当前页面为index时，不跳转
     if (res.status == 0) {
         
@@ -45,6 +48,11 @@ axios.interceptors.response.use(function (response) {//响应拦截
         // Message.warning(res.msg)
         return Promise.reject(res)
     }
+    // 服务器问题拦截
+}, (error) => {
+    let res = error.response;
+    ElMessage.error(res.data.message);
+    return Promise.reject(error)
 
 })
 

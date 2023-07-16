@@ -13,6 +13,7 @@
     "element-plus": "^2.3.7",
     "jsonp": "^0.2.1",
     "mockjs": "^1.1.0",
+    "qrcode": "^1.5.3",
     "sass": "^1.63.6",
     "sass-loader": "^13.3.2",
     "swiper": "^10.0.3",

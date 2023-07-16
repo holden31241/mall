@@ -9,6 +9,7 @@ import Order from './pages/order'
 import OrderList from './pages/orderList'
 import OrderConfirm from './pages/orderConfirm'
 import OrderPay from './pages/orderPay'
+import AliPay from './pages/aliPay'
 
 import { createRouter, createWebHashHistory } from 'vue-router'
 
@@ -73,6 +74,11 @@ const router = createRouter({
                     path: 'pay',
                     name: 'order-pay',
                     component: OrderPay,
+                },
+                {
+                    path: 'alipay',
+                    name: 'alipay',
+                    component: AliPay,
                 }
             ]
         }
