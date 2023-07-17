@@ -39,7 +39,7 @@
                     <div class="item-address">
                         <h2 class="addr-title">收货地址</h2>
                         <div class="addr-list clearfix">
-                            <div class="addr-info" v-for="(item, index) in list" :key="index">
+                            <div class="addr-info" :class="{ 'checked': index == checkIndex }" @click="checkIndex = index" v-for="(item, index) in list" :key="index">
                                 <h2>{{ item.receiverName }}</h2>
                                 <div class="phone">{{ item.receiverMobile }}</div>
                                 <div class="street">{{ item.receiverProvince + ' ' + item.receiverCity + ' ' +
@@ -305,6 +305,7 @@ export default {
             userAction,
             showDelModal,
             showEditModal,
+            checkIndex,
             openAddressModal,
             editAddressModal,
             delAddress,

@@ -78,6 +78,7 @@ import QRCode from 'qrcode'
 import { ElMessage } from 'element-plus'
 import ScanPayCode from './../components/ScanPayCode'
 import Modal from './../components/Modal'
+import 'element-plus/theme-chalk/index.css'
 export default {
     name: 'order-pay',
     setup(){
@@ -152,7 +153,7 @@ export default {
         }
 
         onMounted(()=>{
-            console.log(orderId)
+            // console.log(orderId)
             
             getOrderDetail()
         })

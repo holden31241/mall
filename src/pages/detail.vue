@@ -86,7 +86,8 @@ export default {
          let version=ref(1)
          let product=ref({})
          let getProductInfo=()=>{
-            let id = router.currentRoute.params.id;
+            let id = router.currentRoute.value.params.id;
+            console.log(router.currentRoute.params)
             axios.get(`/products/${id}`).then((res) => {
                 product.value = res;
             })
@@ -94,7 +95,7 @@ export default {
          }
          let addCart=()=>{
             //通过路由参数获得id
-            let id = router.currentRoute.params.id;
+            let id = router.currentRoute.value.params.id;
             axios.post('/carts', {
                 productId: id,
                 selected: true

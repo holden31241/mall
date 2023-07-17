@@ -108,16 +108,18 @@ export default {
       }
       let getProductInfo=()=>{
       //获取路由参数params  
-      let id = router.currentRoute.params.id;
+      let id = router.currentRoute.value.params.id;
+        
         axios.get(`/products/${id}`).then((res) => {
         product.value = res;
       })
     }
       let buy = () => {
-        let id = router.currentRoute.params.id;
+        let id = router.currentRoute.value.params.id;
         router.push(`/detail/${id}`);
       }
       onMounted(()=>{
+        console.log(router.currentRoute.value.params)
         getProductInfo()
       })
         return{
