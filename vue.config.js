@@ -26,6 +26,12 @@ module.exports = defineConfig({
       }
     }
   },
-  productionSourceMap:false
+  //webpack打包时不生成map文件（未加密文件）
+  productionSourceMap:false,
+
+  // 删除页面预加载，实现真正按需加载
+  chainWebpack: (config) => {
+    config.plugins.delete('prefetch');
+  }
   
 })

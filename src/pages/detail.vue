@@ -87,7 +87,7 @@ export default {
          let product=ref({})
          let getProductInfo=()=>{
             let id = router.currentRoute.value.params.id;
-            console.log(router.currentRoute.params)
+            // console.log(router.currentRoute.params)
             axios.get(`/products/${id}`).then((res) => {
                 product.value = res;
             })
@@ -101,7 +101,7 @@ export default {
                 selected: true
             }).then((res = { cartProductVoList: 0 }) => {
                 store.dispatch('saveCartCount', res.cartTotalQuantity);
-                // this.$router.push('/cart');
+               router.push('/cart');
             });
          }
         onMounted(()=>{

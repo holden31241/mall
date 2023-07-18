@@ -119,7 +119,7 @@ export default {
         router.push(`/detail/${id}`);
       }
       onMounted(()=>{
-        console.log(router.currentRoute.value.params)
+        // console.log(router.currentRoute.value.params)
         getProductInfo()
       })
         return{
