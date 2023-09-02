@@ -65,4 +65,9 @@ const app=createApp(App).use(store).use(router).use(VueCookies)
     .use(VueLazyLoad, {loading: '/imgs/loading-svg/loading-bars.svg'
 }).mount('#app')
 // app.config.globalProperties.$cookies = VueCookie
+// 全局挂载
+// app.config.globalProperties.$axios = axios
+// 组件内使用
+// const { proxy } = getCurrentInstance()
+// proxy.$axios
 
